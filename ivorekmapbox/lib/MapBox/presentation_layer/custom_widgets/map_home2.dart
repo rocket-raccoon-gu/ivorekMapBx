@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:ivorekmapbox/MapBox/constants/constants.dart';
+import 'package:ivorekmapbox/MapBox/presentation_layer/custom_widgets/marker_icon.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapAdvanced extends StatefulWidget {
@@ -27,9 +27,8 @@ void addmarker(double latitude,double longitude) async {
         width: 80,
         height: 80,  
         point: LatLng(latitude, longitude),
-        child: Transform.translate(
-          offset: Offset(0.0, -20.0),
-          child: Icon(Icons.location_on_sharp,size: 50.0,color: Colors.red,)))
+        child: MarkerIconWidget()
+          )
      );
 
      polymarks.add(

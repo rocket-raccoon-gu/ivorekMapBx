@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:ivorekmapbox/MapBox/presentation_layer/features/feature_part1/home_screen1.dart';
 import 'package:ivorekmapbox/MapBox/presentation_layer/features/feature_part2/home_screen2.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +37,46 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
+
+
+  Future<bool> _handleLocationPermission() async {
+    var status = await Permission.location.status;
+
+    if (status.isDenied) {
+      //Request Permission if granted
+      await Permission.location.request();
+
+      // You can handle the result of the permission request here
+      var newstatus = await Permission.location.status;
+      if (newstatus.isGranted) {
+        log("location permission granted");
+      } else {
+        log("location permission not granted");
+      }
+    } else {
+       await Permission.location.request();
+
+        // You can handle the result of the permission request here
+        var newstatus = await Permission.location.status;
+
+         if (newstatus.isGranted) {
+        log("location permission granted");
+      } else {
+        log("location permission not granted");
+      }
+    }
+
+    return true;
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _handleLocationPermission();
+  }
+
 
   @override
   Widget build(BuildContext context) {
